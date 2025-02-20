@@ -40,9 +40,8 @@ body {
   font-weight: bold;
 }
 
-/* Main content area */
 #content {
-  margin-left: 250px; /* Push content to the right of the sidebar */
+  margin-left: 250px;
   padding: 20px;
   width: calc(100% - 250px);
 }
