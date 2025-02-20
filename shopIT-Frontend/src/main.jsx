@@ -5,6 +5,9 @@ import App from './App.jsx'
 import About from './components/About'
 import Contact from './components/Contact'
 import Layout from './components/Layout'
+import Cart from './components/Cart'
+import { Provider } from 'react-redux'
+import store from './store.js'
 
 import {createBrowserRouter, RouterProvider} from 'react-router-dom' 
 
@@ -24,6 +27,10 @@ const route = createBrowserRouter([
       {
         path: '/contact',
         element: <Contact />
+      },
+      {
+        path: '/cart',
+        element: <Cart />
       }
     ]
   }
@@ -31,6 +38,8 @@ const route = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router = {route}/>
+    <Provider store={store}>
+      <RouterProvider router = {route}/>
+    </Provider>
   </StrictMode>,
 )
