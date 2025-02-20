@@ -1,42 +1,48 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+body {
+  background-color: antiquewhite;
+  display: flex;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Sidebar navigation */
+#navbar {
+  background-color: orangered;
+  width: 190px; 
+  height: 100vh; 
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding-top: 0; 
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+#navbar a {
+  color: white;
+  font-size: 14px;
+  text-decoration: none;
+  padding: 15px 20px;
+  width: 100%;
+  display: block;
+  transition: background 0.3s ease;
 }
 
-.card {
-  padding: 2em;
+#navbar a:hover {
+  background-color: rgba(246, 239, 239, 0.8);
+  color: orangered;
+  font-weight: bold;
 }
 
-.read-the-docs {
-  color: #888;
+/* Main content area */
+#content {
+  margin-left: 250px; /* Push content to the right of the sidebar */
+  padding: 20px;
+  width: calc(100% - 250px);
 }
