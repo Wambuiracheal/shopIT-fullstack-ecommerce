@@ -1,9 +1,9 @@
 import React from 'react'
 import {FaSearch} from 'react-icons/fa'
 
-function Search(){
+function Search({onSearch}){
     function handleSearch(e){
-        searchforme(e.target.value)
+        onSearch(e.target.value)
     }
     return(
         <>
