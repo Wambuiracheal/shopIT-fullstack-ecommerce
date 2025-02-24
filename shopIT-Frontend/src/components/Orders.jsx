@@ -2,11 +2,12 @@ import { useState, useEffect } from "react";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
+  const [activeTab, setActiveTab] = useState("unpaid");
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await fetch("");
+        const response = await fetch("/api/orders");
         if (response.ok) {
           const data = await response.json();
           setOrders(data);
@@ -21,15 +22,27 @@ const Orders = () => {
     fetchOrders();
   }, []);
 
+  const filterOrders = (status) => {
+    return orders.filter(order => order.status === status);
+  };
+
   return (
     <div>
       <h2>Your Orders</h2>
-      {orders.length === 0 ? (
-        <p>No orders yet.</p>
+      <div style={{ display: "flex", justifyContent: "flex-start", gap: "1rem", marginBottom: "1rem" }}>
+        <button onClick={() => setActiveTab("unpaid")}>Unpaid</button>
+        <button onClick={() => setActiveTab("toBeShipped")}>To Be Shipped</button>
+        <button onClick={() => setActiveTab("delivered")}>Delivered</button>
+        <button onClick={() => setActiveTab("cancelled")}>Cancelled</button>
+        <button onClick={() => setActiveTab("returned")}>Returned</button>
+      </div>
+
+      {filterOrders(activeTab).length === 0 ? (
+        <p>No orders in this category.</p>
       ) : (
         <ul>
-          {orders.map((order, index) => (
-            <li key={index}>
+          {filterOrders(activeTab).map((order, index) => (
+            <li key={index} style={{ border: "1px solid #ccc", padding: "1rem", marginBottom: "1rem" }}>
               <h3>Order #{index + 1}</h3>
               <p><strong>Name:</strong> {order.fullName}</p>
               <p><strong>Address:</strong> {order.address}, {order.city}</p>
