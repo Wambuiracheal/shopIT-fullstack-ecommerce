@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { loginUser } from "../services/authService";
 import { useNavigate } from "react-router-dom";
-import jwt_decode from "jwt-decode";  
+import * as jwt_decode from 'jwt-decode';
 
 function LoginPage() {
   const [email, setEmail] = useState("");
