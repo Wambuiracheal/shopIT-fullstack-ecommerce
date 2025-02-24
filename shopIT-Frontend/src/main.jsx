@@ -8,6 +8,9 @@ import Layout from './components/Layout'
 import Cart from './components/Cart'
 import { Provider } from 'react-redux'
 import store from './store.js'
+import Checkout from './components/Checkout'
+import Orders from './components/Orders';
+
 
 
 import {createBrowserRouter, RouterProvider} from 'react-router-dom' 
@@ -32,6 +35,14 @@ const route = createBrowserRouter([
       {
         path: '/cart',
         element: <Cart />
+      },
+      {
+        path: '/checkout', 
+        element: <Checkout />
+      },
+      {
+        path: '/orders', 
+        element: <Orders />
       }
     ]
   }
