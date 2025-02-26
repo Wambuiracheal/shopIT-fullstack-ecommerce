@@ -8,7 +8,7 @@ function Search({onSearch}){
     return(
         <>
             <FaSearch className='search-icon' size={9}/>
-            <input type='text' placeholder='search for an iteme here...' onChange={handleSearch} className='input-field'/>
+            <input type='text' placeholder='search for an item here...' onChange={handleSearch} className='input-field'/>
             
         </>
 
