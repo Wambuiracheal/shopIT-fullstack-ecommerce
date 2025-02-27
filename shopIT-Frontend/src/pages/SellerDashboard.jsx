@@ -1,16 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
+const fetchUsers = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve([
+        { id: 1, Alex: "User 1", email: "Alex@gmail.com" },
+        { id: 2, Victor: "User 2", email: "Victor2@gmail.com" },
+        { id: 3, Natalie: "User 3", email: "Natalie@gmail.com" },
+      ]);
+    }, 1000); 
+  });
+};
 
 function SellerDashboard() {
+  const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([
     { id: 1, name: "Product 1", price: "$10", description: "A great product" },
     { id: 2, name: "Product 2", price: "$20", description: "Another awesome product" },
   ]);
-  
+
   const [newProduct, setNewProduct] = useState({
     name: "",
     price: "",
     description: "",
   });
+
+  const [loadingUsers, setLoadingUsers] = useState(true);
+
+  useEffect(() => {
+    fetchUsers()
+      .then((usersData) => {
+        setUsers(usersData);
+        setLoadingUsers(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching users:", error);
+        setLoadingUsers(false);
+      });
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -72,6 +99,25 @@ function SellerDashboard() {
             </li>
           ))}
         </ul>
+      </div>
+
+      <div>
+        <h3>Users Who Are Browsing Your Products:</h3>
+        {loadingUsers ? (
+          <p>Loading users...</p>
+        ) : (
+          <ul>
+            {users.length === 0 ? (
+              <p>No users available</p>
+            ) : (
+              users.map((user) => (
+                <li key={user.id}>
+                  <strong>{user.name}</strong> - {user.email}
+                </li>
+              ))
+            )}
+          </ul>
+        )}
       </div>
     </div>
   );
