@@ -27,22 +27,50 @@ const Orders = () => {
   };
 
   return (
-    <div>
+    <div className="orders-container">
       <h2>Your Orders</h2>
-      <div style={{ display: "flex", justifyContent: "flex-start", gap: "1rem", marginBottom: "1rem" }}>
-        <button onClick={() => setActiveTab("unpaid")}>Unpaid</button>
-        <button onClick={() => setActiveTab("toBeShipped")}>To Be Shipped</button>
-        <button onClick={() => setActiveTab("delivered")}>Delivered</button>
-        <button onClick={() => setActiveTab("cancelled")}>Cancelled</button>
-        <button onClick={() => setActiveTab("returned")}>Returned</button>
+
+      {/* Navigation Tabs */}
+      <div className="order-tabs">
+        <button 
+          className={activeTab === "unpaid" ? "active-tab" : ""} 
+          onClick={() => setActiveTab("unpaid")}
+        >
+          Unpaid
+        </button>
+        <button 
+          className={activeTab === "toBeShipped" ? "active-tab" : ""} 
+          onClick={() => setActiveTab("toBeShipped")}
+        >
+          To Be Shipped
+        </button>
+        <button 
+          className={activeTab === "delivered" ? "active-tab" : ""} 
+          onClick={() => setActiveTab("delivered")}
+        >
+          Delivered
+        </button>
+        <button 
+          className={activeTab === "cancelled" ? "active-tab" : ""} 
+          onClick={() => setActiveTab("cancelled")}
+        >
+          Cancelled
+        </button>
+        <button 
+          className={activeTab === "returned" ? "active-tab" : ""} 
+          onClick={() => setActiveTab("returned")}
+        >
+          Returned
+        </button>
       </div>
 
+      {/* Orders List */}
       {filterOrders(activeTab).length === 0 ? (
         <p>No orders in this category.</p>
       ) : (
-        <ul>
+        <ul className="orders-list">
           {filterOrders(activeTab).map((order, index) => (
-            <li key={index} style={{ border: "1px solid #ccc", padding: "1rem", marginBottom: "1rem" }}>
+            <li className="order-item" key={index}>
               <h3>Order #{index + 1}</h3>
               <p><strong>Name:</strong> {order.fullName}</p>
               <p><strong>Address:</strong> {order.address}, {order.city}</p>

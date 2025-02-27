@@ -40,7 +40,7 @@ const Checkout = () => {
       });
 
       if (response.ok) {
-        navigate("/orders"); // Redirect to orders page after successful order placement
+        navigate("/orders"); 
       } else {
         console.error("Failed to place order");
       }
