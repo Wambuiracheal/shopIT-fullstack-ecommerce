@@ -14,16 +14,12 @@ function SignupPage() {
   const handleSignup = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError(""); 
+    setError("");
 
     try {
       const success = await registerUser(name, email, password, role);
       if (success) {
-        if (role === "buyer") {
-          navigate("/buyer-dashboard"); 
-        } else {
-          navigate("/seller-dashboard"); 
-        }
+        navigate(role === "buyer" ? "/buyer-dashboard" : "/seller-dashboard");
       } else {
         setError("Registration failed. Please try again.");
       }
@@ -35,48 +31,49 @@ function SignupPage() {
   };
 
   return (
-    <div>
-      <h2>Sign Up</h2>
-      <form onSubmit={handleSignup}>
-        <div>
-          <input
-            type="text"
-            placeholder="Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
+    <div className="signup-wrapper">
+      <div className="signup-container">
+        <div className="signup-image">
+          <img
+            src="https://static.vecteezy.com/system/resources/previews/003/689/251/non_2x/online-registration-or-sign-up-login-for-account-on-smartphone-app-user-interface-with-secure-password-mobile-application-for-ui-web-banner-access-cartoon-people-illustration-vector.jpg"
+            alt="Signup Illustration"
           />
         </div>
-        <div>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+        <div className="signup-form">
+          <h2>Create Your Account</h2>
+          <form onSubmit={handleSignup}>
+            <input
+              type="text"
+              placeholder="Full Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+            <input
+              type="email"
+              placeholder="Email Address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <select value={role} onChange={(e) => setRole(e.target.value)}>
+              <option value="buyer">Buyer</option>
+              <option value="seller">Seller</option>
+            </select>
+            <button type="submit" disabled={loading}>
+              {loading ? "Signing up..." : "Sign Up"}
+            </button>
+          </form>
+          {error && <p>{error}</p>}
         </div>
-        <div>
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <select value={role} onChange={(e) => setRole(e.target.value)}>
-            <option value="buyer">Buyer</option>
-            <option value="seller">Seller</option>
-          </select>
-        </div>
-        <button type="submit" disabled={loading}>
-          {loading ? "Signing up..." : "Sign Up"}
-        </button>
-      </form>
-
-      {error && <p style={{ color: "red" }}>{error}</p>} 
+      </div>
     </div>
   );
 }

@@ -179,6 +179,18 @@ body {
   text-decoration: underline;
 }
 
+/* .advertisement-banner {
+  width: 100%;
+  text-align: center;
+  margin: 20px ;
+}
+
+.advertisement-banner img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+} */
 
 /* MAIN CONTENT */
 #content {
@@ -239,4 +251,97 @@ body {
 
 .add-to-cart:hover {
   background-color: #e65c00;
+}
+
+/* SIGNUP PAGE */
+/* Centers everything in the middle of the screen */
+.signup-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f7f7f7; /* Light neutral background */
+}
+
+/* Card-style container for the form & image */
+.signup-container {
+  display: flex;
+  width: 850px;
+  background: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Left side: Image section */
+.signup-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ff7f00; /* Orange background */
+  padding: 20px;
+}
+
+.signup-image img {
+  width: 100%;
+  height: auto;
+  max-width: 350px; /* Adjust width */
+  border-radius: 10px;
+}
+
+/* Right side: Form */
+.signup-form {
+  flex: 1;
+  padding: 40px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #fff7e6; /* Light orange form background */
+  border-radius: 10px;
+}
+
+/* Signup heading */
+.signup-form h2 {
+  font-size: 26px;
+  color: #ff7f00; /* Orange theme */
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+/* Input fields */
+.signup-form input,
+.signup-form select {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ff7f00;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+/* Signup button */
+.signup-form button {
+  width: 100%;
+  padding: 12px;
+  background: #ff7f00;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.signup-form button:hover {
+  background: #cc6600; /* Darker orange on hover */
+}
+
+/* Error message */
+.signup-form p {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
 }
