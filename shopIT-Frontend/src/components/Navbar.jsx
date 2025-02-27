@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { FaHome, FaInfoCircle, FaEnvelope, FaShoppingCart } from 'react-icons/fa';
-import Search from './Search';
 import logo from '../assets/logo.png';
 
 function Navbar() {
@@ -18,3 +17,4 @@ function Navbar() {
 }
 
 export default Navbar;
+
