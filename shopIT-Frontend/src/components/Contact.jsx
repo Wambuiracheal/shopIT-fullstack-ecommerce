@@ -15,30 +15,32 @@ const Contact = () => {
 
   return (
     <div className="contact-container">
-      <h1>Contact Us</h1>
-      <p>We'd love to hear from you! Reach out to us through any of the following channels:</p>
+      <div className="contact-content">
+        <h1>Contact <span>ShopIT</span></h1>
+        <p>We'd love to hear from you! Reach out to us through any of the following channels:</p>
 
-      <div className="contact-details">
-        <h2>Email</h2>
-        <p>shopITCustomerSupport@shopit.com</p>
+        <div className="contact-details">
+          <h2>Email</h2>
+          <p>📧 shopITCustomerSupport@shopit.com</p>
 
-        <h2>Phone</h2>
-        <p>+254 737171378</p>
+          <h2>Phone</h2>
+          <p>📞 +254 737171378</p>
 
-        <h2>Address</h2>
-        <p>Luthuli Street, Nairobi City, 45678</p>
+          <h2>Address</h2>
+          <p>📍 Luthuli Street, Nairobi City, 45678</p>
+        </div>
+
+        <h2>Send Us a Message</h2>
+
+        {formSubmitted && <p className="success-message">✅ Message sent successfully!</p>}
+
+        <form className="contact-form" onSubmit={handleSubmit}>
+          <input type="text" placeholder="Your Name" required />
+          <input type="email" placeholder="Your Email" required />
+          <textarea placeholder="Your Message" required></textarea>
+          <button type="submit">Send Message</button>
+        </form>
       </div>
-
-      <h2>Send Us a Message</h2>
-
-      {formSubmitted && <p className="success-message">✅ Message sent successfully!</p>}
-
-      <form className="contact-form" onSubmit={handleSubmit}>
-        <input type="text" placeholder="Your Name" required />
-        <input type="email" placeholder="Your Email" required />
-        <textarea placeholder="Your Message" required></textarea>
-        <button type="submit">Send Message</button>
-      </form>
     </div>
   );
 };

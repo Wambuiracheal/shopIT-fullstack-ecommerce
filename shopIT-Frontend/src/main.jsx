@@ -50,11 +50,11 @@ const route = createBrowserRouter([
         element: <DashboardPage />,
       },
       {
-        path: '/dashboard/seller',
+        path: '/seller-dashboard',
         element: <SellerDashboard />,
       },
       {
-        path: '/dashboard/buyer',
+        path: 'buyer-dashboard',
         element: <BuyerDashboard />,
       },
     ],
