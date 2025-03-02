@@ -1,9 +1,10 @@
-import {Link} from 'react-router-dom'
-import {FaHome, FaInfoCircle, FaEnvelope} from 'react-icons/fa'
-import Search from './Search'
-import logo from '../assets/logo.png'
-function Navbar(){
-    return(
+import { Link } from 'react-router-dom';
+import { FaHome, FaInfoCircle, FaEnvelope, FaBox } from 'react-icons/fa';
+import Search from './Search';
+import logo from '../assets/logo.png';
+
+function Navbar() {
+    return (
         <>
             <nav id='navbar'>
                 <div id='logo'>
@@ -12,12 +13,13 @@ function Navbar(){
                 <Link id='nav-link' to={'/'}><FaHome size={20}/> Home</Link>
                 <Link id='nav-link' to={'/about'}><FaInfoCircle size={20}/> About</Link>
                 <Link id='nav-link' to={'/contact'}><FaEnvelope size={20}/> Contact</Link>
+                <Link id='nav-link' to={'/orders'}><FaBox size={20}/> Orders</Link>
                 <div id='search'>
                     <Search />
                 </div>
             </nav>
         </>
-    )
+    );
 }
 
-export default Navbar
+export default Navbar;
