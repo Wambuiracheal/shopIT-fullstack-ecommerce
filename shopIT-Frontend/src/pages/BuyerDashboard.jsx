@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
-const products = [
-  { id: 1, name: "Product 1", price: "$10" },
-  { id: 2, name: "Product 2", price: "$20" },
-  { id: 3, name: "Product 3", price: "$30" },
-];
 
 function BuyerDashboard() {
-  const [productList, setProductList] = useState([]);
+  const [products, setProducts] = useState([]);
 
+  const url = ""
+
+  // GET PRODUCTS
   useEffect(() => {
-    setProductList(products);
+    fetch(`${url}`)
+      .then((res) => res.json())
+      .then((data) => setProducts(data))
+      .catch((err) => console.error("Error fetching products:", err));
   }, []);
 
   return (
@@ -19,11 +20,14 @@ function BuyerDashboard() {
 
       <h3>Available Products</h3>
       <ul>
-        {productList.map((product) => (
+        {products.map((product) => (
           <li key={product.id}>
-            <h4>{product.name}</h4>
-            <p>Price: {product.price}</p>
-            <button>Add to Cart</button>
+           <img src={product.image} alt={product.name} loading="lazy" />
+              <h3>{product.name}</h3>
+              <p>{product.description}</p>
+              <p className="price">${product.price}</p>
+              <p className="category">{product.category}</p>
+              <button className="add-to-cart" onClick={() => addToCart(product)}></button>
           </li>
         ))}
       </ul>

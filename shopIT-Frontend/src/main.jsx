@@ -15,6 +15,8 @@ import SignupPage from './pages/SignupPage'
 import DashboardPage from './pages/DashboardPage'
 import SellerDashboard from './pages/SellerDashboard'
 import BuyerDashboard from './pages/BuyerDashboard'
+import Buyerspage from './pages/Buyerspage.jsx'
+import Productspage from './pages/Productspage'
 
 const route = createBrowserRouter([
   {
@@ -57,6 +59,14 @@ const route = createBrowserRouter([
         path: 'buyer-dashboard',
         element: <BuyerDashboard />,
       },
+      {
+        path: '/buyers-page',
+        element: <Buyerspage />,
+      },
+      {
+        path: '/products-page',
+        element: <Productspage />,
+      }
     ],
   },
 ])
