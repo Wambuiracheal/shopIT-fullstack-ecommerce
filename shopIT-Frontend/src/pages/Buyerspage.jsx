@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Buyers({ url }) {
+const url = "http://127.0.0.1:5555/buyers-page"
+function Buyers() {
   const [users, setUsers] = useState([]);
   const [newUser, setNewUser] = useState({ name: "", email: "", role: "buyer" });
   const [editingUser, setEditingUser] = useState(null);
@@ -9,7 +10,7 @@ function Buyers({ url }) {
 
   // Fetch users from API
   useEffect(() => {
-    fetch(url)
+    fetch(`${url}`)
       .then((res) => res.json())
       .then((data) => setUsers(data))
       .catch((err) => console.error("Error fetching users:", err));
@@ -28,7 +29,7 @@ function Buyers({ url }) {
   // Add a new user
   function handleSubmit(e) {
     e.preventDefault();
-    fetch(url, {
+    fetch(`${url}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newUser),

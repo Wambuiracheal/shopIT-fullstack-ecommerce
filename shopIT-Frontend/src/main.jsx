@@ -17,6 +17,7 @@ import SellerDashboard from './pages/SellerDashboard'
 import BuyerDashboard from './pages/BuyerDashboard'
 import Buyerspage from './pages/Buyerspage.jsx'
 import Productspage from './pages/Productspage'
+import ForgotPassword from './pages/Forgotpassword'
 
 const route = createBrowserRouter([
   {
@@ -66,6 +67,10 @@ const route = createBrowserRouter([
       {
         path: '/products-page',
         element: <Productspage />,
+      },
+      {
+        path: '/forgot-password',
+        element: <ForgotPassword />
       }
     ],
   },
