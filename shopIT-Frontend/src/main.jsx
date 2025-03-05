@@ -3,12 +3,16 @@ import { createRoot } from 'react-dom/client'
 import './App.css'
 import { Provider } from 'react-redux'
 import store from './store.js'
-
+import Checkout from './components/Checkout'
+import Orders from './components/Orders';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Layout from './components/Layout'
 import App from './App'
 import About from './components/About'
-import Contact from './components/Contact'
+import Contact from './components/
+import Layout from './components/Layout'
+import ProductListing from './components/ProductListing'
+import {createBrowserRouter, RouterProvider} from 'react-router-dom' 
 import Cart from './components/Cart'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
@@ -34,11 +38,23 @@ const route = createBrowserRouter([
       },
       {
         path: '/contact',
-        element: <Contact />,
+        element: <Contact />
+      },
+      {
+        path: '/products',
+        element: <ProductListing />
       },
       {
         path: '/cart',
-        element: <Cart />,
+        element: <Cart />
+      },
+      {
+        path: '/checkout', 
+        element: <Checkout />
+      },
+      {
+        path: '/orders', 
+        element: <Orders />
       },
       {
         path: '/login',
