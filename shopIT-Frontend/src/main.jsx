@@ -5,11 +5,9 @@ import { Provider } from 'react-redux'
 import store from './store.js'
 import Checkout from './components/Checkout'
 import Orders from './components/Orders';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Layout from './components/Layout'
 import App from './App'
 import About from './components/About'
-import Contact from './components/
+import Contact from './components/Contact'
 import Layout from './components/Layout'
 import ProductListing from './components/ProductListing'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom' 

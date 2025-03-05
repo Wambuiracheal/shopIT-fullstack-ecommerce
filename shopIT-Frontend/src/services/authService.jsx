@@ -1,42 +1,56 @@
-const API_URL = "http://localhost:5173/api/auth";
+const API_URL = "http://127.0.0.1:5555";  
 
+// Login User Function
 export const loginUser = async (email, password) => {
   try {
-    const simulatedResponse = { 
-      token: "fake-jwt-token",  
-      message: "Login successful!"
-    };
+    const response = await fetch(`${API_URL}/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
 
-    if (email === "test@user.com" && password === "password123") {
-      localStorage.setItem("token", simulatedResponse.token);
-      return true; 
+    if (response.ok) {
+      const data = await response.json();
+      localStorage.setItem("token", data.token);
+      alert("Login successful!");
+      return true;
     } else {
-      alert("Invalid credentials!");
+      const errorData = await response.json();
+      alert(`Login failed: ${errorData.message}`);
       return false;
     }
   } catch (error) {
     console.error("Error during login:", error);
-    alert("Login failed. Please try again later.");
+    alert("Login failed. Please check your network and try again.");
     return false;
   }
 };
 
+// Register User Function
 export const registerUser = async (name, email, password, role) => {
   try {
-    const simulatedResponse = {
-      message: "Registration successful!"
-    };
+    const response = await fetch(`${API_URL}/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, email, password, role }),
+    });
 
-    if (name && email && password && role) {
-      alert(simulatedResponse.message); 
-      return true; 
+    if (response.ok) {
+      const data = await response.json();
+      alert(data.message || "Registration successful!");
+      return true;
     } else {
-      alert("Please fill in all fields correctly.");
+      const errorData = await response.json();
+      alert(`Registration failed: ${errorData.message}`);
       return false;
     }
   } catch (error) {
     console.error("Error during registration:", error);
-    alert("Registration failed. Please try again later.");
+    alert("Registration failed. Please check your network and try again.");
     return false;
   }
 };
