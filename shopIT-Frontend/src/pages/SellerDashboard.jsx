@@ -1,16 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React,  { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-const fetchUsers = () => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve([
-        { id: 1, Alex: "User 1", email: "Alex@gmail.com" },
-        { id: 2, Victor: "User 2", email: "Victor2@gmail.com" },
-        { id: 3, Natalie: "User 3", email: "Natalie@gmail.com" },
-      ]);
-    }, 1000); 
-  });
-};
+function SellerDashboard() {
+  const navigate = useNavigate();
+
+  const fetchUsers = () => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve([
+          { id: 1, Alex: "User 1", email: "Alex@gmail.com" },
+          { id: 2, Victor: "User 2", email: "Victor2@gmail.com" },
+          { id: 3, Natalie: "User 3", email: "Natalie@gmail.com" },
+        ]);
+      }, 1000); 
+    });
+  };
 
 function SellerDashboard() {
   const [users, setUsers] = useState([]);
@@ -52,53 +56,26 @@ function SellerDashboard() {
     const newProductWithId = { ...newProduct, id: products.length + 1 };
     setProducts([...products, newProductWithId]);
     setNewProduct({ name: "", price: "", description: "" });
-  };
 
   return (
-    <div>
+    <div className="dashboard-container">
       <h2>Welcome, Seller!</h2>
-      <p>This is your seller dashboard. You can manage your products here.</p>
+      <p>Manage your profile, buyers, and products easily.</p>
 
-      <div>
-        <h3>Add New Product:</h3>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="name"
-            value={newProduct.name}
-            onChange={handleChange}
-            placeholder="Product Name"
-            required
-          />
-          <input
-            type="number"
-            name="price"
-            value={newProduct.price}
-            onChange={handleChange}
-            placeholder="Price"
-            required
-          />
-          <textarea
-            name="description"
-            value={newProduct.description}
-            onChange={handleChange}
-            placeholder="Description"
-            required
-          ></textarea>
-          <button type="submit">Add Product</button>
-        </form>
-      </div>
-
-      <div>
-        <h3>Product List:</h3>
-        <ul>
-          {products.map((product) => (
-            <li key={product.id}>
-              <strong>{product.name}</strong> - {product.price}
-              <p>{product.description}</p>
-            </li>
-          ))}
-        </ul>
+      {/* SELLER DASHBOARD CARDS */}
+      <div className="cards-container">
+        <div className="card" onClick={() => navigate("/seller-profile")}> 
+          <h3>Seller Profile</h3>
+          <p>Manage your account details.</p>
+        </div>
+        <div className="card" onClick={() => navigate("/buyers-page")}> 
+          <h3>Buyers</h3>
+          <p>View and manage buyers.</p>
+        </div>
+        <div className="card" onClick={() => navigate("/products-page")}> 
+          <h3>Products</h3>
+          <p>View and manage your products.</p>
+        </div>
       </div>
 
       <div>
