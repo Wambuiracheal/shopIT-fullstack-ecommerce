@@ -1,5 +1,4 @@
 const API_URL = "http://127.0.0.1:5555";  
-
 // Login User Function
 export const loginUser = async (email, password) => {
   try {
@@ -13,8 +12,21 @@ export const loginUser = async (email, password) => {
 
     if (response.ok) {
       const data = await response.json();
-      localStorage.setItem("token", data.token);
-      alert("Login successful!");
+
+      localStorage.setItem("token", data.access_token);
+
+      if (data.user && data.user.role && (data.user.role === "buyer" || data.user.role === "seller")) {
+        alert("Login successful!");
+
+        if (data.user.role === "buyer") {
+          window.location.href = "/buyer-dashboard"; 
+        } else if (data.user.role === "seller") {
+          window.location.href = "/seller-dashboard"; 
+        }
+      } else {
+        alert("Unknown user role. Please contact support.");
+      }
+
       return true;
     } else {
       const errorData = await response.json();
