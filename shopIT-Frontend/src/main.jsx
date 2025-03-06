@@ -5,20 +5,22 @@ import { Provider } from 'react-redux'
 import store from './store.js'
 import Checkout from './components/Checkout'
 import Orders from './components/Orders';
-
-
-
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Layout from './components/Layout'
 import App from './App'
 import About from './components/About'
 import Contact from './components/Contact'
+import Layout from './components/Layout'
+import ProductListing from './components/ProductListing'
+import {createBrowserRouter, RouterProvider} from 'react-router-dom' 
 import Cart from './components/Cart'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
 import DashboardPage from './pages/DashboardPage'
 import SellerDashboard from './pages/SellerDashboard'
 import BuyerDashboard from './pages/BuyerDashboard'
+import Buyerspage from './pages/Buyerspage.jsx'
+import Productspage from './pages/Productspage'
+import ForgotPassword from './pages/Forgotpassword'
+import Mpesa from './components/Mpesa'
 
 const route = createBrowserRouter([
   {
@@ -35,7 +37,11 @@ const route = createBrowserRouter([
       },
       {
         path: '/contact',
-        element: <Contact />,
+        element: <Contact />
+      },
+      {
+        path: '/products',
+        element: <ProductListing />
       },
       {
         path: '/cart',
@@ -62,13 +68,29 @@ const route = createBrowserRouter([
         element: <DashboardPage />,
       },
       {
-        path: '/dashboard/seller',
+        path: '/seller-dashboard',
         element: <SellerDashboard />,
       },
       {
-        path: '/dashboard/buyer',
+        path: 'buyer-dashboard',
         element: <BuyerDashboard />,
       },
+      {
+        path: '/buyers-page',
+        element: <Buyerspage />,
+      },
+      {
+        path: '/products-page',
+        element: <Productspage />,
+      },
+      {
+        path: '/forgot-password',
+        element: <ForgotPassword />
+      },
+      {
+        path: '/mpesa',
+        element: <Mpesa />
+      }
     ],
   },
 ])
