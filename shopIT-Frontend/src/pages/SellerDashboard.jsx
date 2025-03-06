@@ -1,13 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-function SellerDashboard() {
+function SellersDashboard() {
   const navigate = useNavigate();
 
   return (
     <div className="dashboard-container">
       <h2>Welcome, Seller!</h2>
-      <p>Manage your profile, buyers, and products easily.</p>
+      <p>Manage your profile and products easily.</p>
 
       {/* SELLER DASHBOARD CARDS */}
       <div className="cards-container">
@@ -15,11 +15,7 @@ function SellerDashboard() {
           <h3>Seller Profile</h3>
           <p>Manage your account details.</p>
         </div>
-        <div className="card" onClick={() => navigate("/buyers-page")}> 
-          <h3>Buyers</h3>
-          <p>View and manage buyers.</p>
-        </div>
-        <div className="card" onClick={() => navigate("/products-page")}> 
+        <div className="card" onClick={() => navigate("/products-management")}> 
           <h3>Products</h3>
           <p>View and manage your products.</p>
         </div>
@@ -28,4 +24,4 @@ function SellerDashboard() {
   );
 }
 
-export default SellerDashboard;
+export default SellersDashboard;
