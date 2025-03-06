@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const url = "http://127.0.0.1:5000/products"
+const url = "http://127.0.0.1:5000/products";
 
 function ProductsPage() {
   const [products, setProducts] = useState([]);
@@ -9,11 +9,12 @@ function ProductsPage() {
     category: "",
     price: "",
     description: "",
+    image: "", // New field for the image URL
   });
 
   // FETCH PRODUCTS ON LOAD
   useEffect(() => {
-    fetch(`${url}`)
+    fetch(url)
       .then((res) => res.json())
       .then((data) => setProducts(data))
       .catch((err) => console.error("Error fetching products:", err));
@@ -27,7 +28,7 @@ function ProductsPage() {
   // ADD NEW PRODUCT
   function handleSubmit(e) {
     e.preventDefault();
-    fetch(`${url}`, {
+    fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newProduct),
@@ -35,19 +36,17 @@ function ProductsPage() {
       .then((res) => res.json())
       .then((newProd) => {
         setProducts([...products, newProd]);
-        setNewProduct({ name: "", category: "", price: "", description: "" });
+        setNewProduct({ name: "", category: "", price: "", description: "", image: "" });
       })
       .catch((err) => console.error("Error adding product:", err));
   }
 
   // DELETE PRODUCT
   function handleDelete(id) {
-    fetch(`${url}/${id}`, {
-      method: "DELETE",
-    })
+    fetch(`${url}/${id}`, { method: "DELETE" })
       .then((res) => res.json())
       .then(() => {
-        setProducts((prevProducts) => prevProducts.filter((prod) => prod.id !== id));
+        setProducts(products.filter((prod) => prod.id !== id));
       })
       .catch((err) => console.error("Error deleting product:", err));
   }
@@ -80,21 +79,23 @@ function ProductsPage() {
           <input type="text" name="category" value={newProduct.category} onChange={handleChange} placeholder="Category" required />
           <input type="number" name="price" value={newProduct.price} onChange={handleChange} placeholder="Price" required />
           <textarea name="description" value={newProduct.description} onChange={handleChange} placeholder="Description" required />
+          <input type="text" name="image" value={newProduct.image} onChange={handleChange} placeholder="Image URL" required />
           <button type="submit">Add Product</button>
         </form>
       </div>
 
-      {/* PRODUCT LIST */}
+      {/* PRODUCT LIST IN A 4-COLUMN GRID */}
       <div className="product-list">
-        <h3>Product List:</h3>
-        <ul>
-          {products.length > 0 ? (
-            products.map((prod) => (
-              <li key={prod.id}>
-                <strong>Name:</strong> {prod.name} <br />
-                <strong>Category:</strong> {prod.category} <br />
-                <strong>Price:</strong> ${prod.price} <br />
-                <strong>Description:</strong> {prod.description} <br />
+        <h3>Products</h3>
+        {products.length > 0 ? (
+          <div className="grid-container">
+            {products.map((prod) => (
+              <div className="product-card" key={prod.id}>
+                <img src={prod.image} alt={prod.name} className="product-image" />
+                <h4>{prod.name}</h4>
+                <p><strong>Category:</strong> {prod.category}</p>
+                <p><strong>Price:</strong> ${prod.price}</p>
+                <p>{prod.description}</p>
                 <button onClick={() => handleDelete(prod.id)}>Delete</button>
                 
                 {/* UPDATE FORM */}
@@ -110,14 +111,15 @@ function ProductsPage() {
                   <input name="category" type="text" defaultValue={prod.category} required />
                   <input name="price" type="number" defaultValue={prod.price} required />
                   <textarea name="description" defaultValue={prod.description} required />
+                  <input name="image" type="text" defaultValue={prod.image} required />
                   <button type="submit">Update</button>
                 </form>
-              </li>
-            ))
-          ) : (
-            <p>No products available.</p>
-          )}
-        </ul>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p>No products available.</p>
+        )}
       </div>
     </div>
   );
