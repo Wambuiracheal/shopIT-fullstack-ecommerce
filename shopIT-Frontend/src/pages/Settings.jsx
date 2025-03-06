@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-function AdminSettings() {
-  const [adminName, setAdminName] = useState("Admin");
-  const [adminEmail, setAdminEmail] = useState("admin@example.com");
+function SellerSettings() {
+  const [sellerName, setSellerName] = useState("Seller");
+  const [sellerEmail, setSellerEmail] = useState("seller@example.com");
   const [password, setPassword] = useState("");
   const [maintenanceMode, setMaintenanceMode] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -19,11 +19,11 @@ function AdminSettings() {
 
   return (
     <div className="settings-container">
-      <h2>Admin Settings</h2>
+      <h2>Seller Settings</h2>
 
       {successMessage && <p className="success-message">{successMessage}</p>}
 
-      {/* Admin Profile Settings */}
+      {/* Seller Profile Settings */}
       <div className="settings-section">
         <h3>Profile Settings</h3>
         <form onSubmit={handleSaveChanges}>
@@ -31,8 +31,8 @@ function AdminSettings() {
             Name:
             <input
               type="text"
-              value={adminName}
-              onChange={(e) => setAdminName(e.target.value)}
+              value={sellerName}
+              onChange={(e) => setSellerName(e.target.value)}
               required
             />
           </label>
@@ -40,8 +40,8 @@ function AdminSettings() {
             Email:
             <input
               type="email"
-              value={adminEmail}
-              onChange={(e) => setAdminEmail(e.target.value)}
+              value={sellerEmail}
+              onChange={(e) => setSellerEmail(e.target.value)}
               required
             />
           </label>
@@ -71,4 +71,4 @@ function AdminSettings() {
   );
 }
 
-export default AdminSettings;
+export default SellerSettings;

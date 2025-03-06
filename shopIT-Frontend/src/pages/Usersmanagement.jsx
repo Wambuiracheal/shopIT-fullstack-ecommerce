@@ -83,7 +83,6 @@ function Users() {
         <form onSubmit={handleSubmit}>
           <input type="text" name="name" value={newUser.name} onChange={handleChange} placeholder="Name" required />
           <input type="email" name="email" value={newUser.email} onChange={handleChange} placeholder="Email" required />
-          <input type="text" name="role" value={newUser.role} onChange={handleChange} placeholder="Role" required />
           <button type="submit" className="add-btn">Add User</button>
         </form>
       )}

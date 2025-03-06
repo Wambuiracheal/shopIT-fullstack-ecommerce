@@ -20,13 +20,11 @@ import SignupPage from "./pages/SignupPage";
 import ForgotPassword from "./pages/Forgotpassword";
 
 import DashboardPage from "./pages/DashboardPage";
-import AdminDashboard from "./pages/AdminDashboard";
 import SellerDashboard from "./pages/SellerDashboard";
 import BuyerDashboard from "./pages/BuyerDashboard";
 
 import UsersManagement from "./pages/Usersmanagement";
 import ProductsManagement from "./pages/Productsmanagement";
-import Sellermanagement from "./pages/Sellermanagement";
 import Settings from "./pages/Settings"
 
 const route = createBrowserRouter([
@@ -50,14 +48,12 @@ const route = createBrowserRouter([
 
       // Dashboards
       { path: "/dashboard", element: <DashboardPage /> },
-      { path: "/admin", element: <AdminDashboard /> },
       { path: "/seller-dashboard", element: <SellerDashboard /> },
       { path: "/buyer-dashboard", element: <BuyerDashboard /> },
 
       // Management Pages
       { path: "/users-management", element: <UsersManagement /> },
       { path: "/products-management", element: <ProductsManagement /> },
-      { path: "/sellers-management", element: <Sellermanagement /> },
       {path: "/site-settings", element: <Settings />}
     ],
   },
