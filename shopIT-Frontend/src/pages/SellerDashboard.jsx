@@ -6,8 +6,8 @@ function AdminDashboard() {
 
   return (
     <div className="dashboard-container">
-      <h2>Welcome, Admin!</h2>
-      <p>Manage users, sellers, products, and platform settings.</p>
+      <h2>Welcome!</h2>
+      <p>Manage users,  products, and platform settings.</p>
 
       {/* ADMIN DASHBOARD CARDS */}
       <div className="cards-container">

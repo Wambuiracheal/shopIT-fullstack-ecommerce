@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const url = "http://127.0.0.1:5000/products";
+const url = "http://127.0.0.1:5555/products";
 
 function ProductsPage() {
   const [products, setProducts] = useState([]);
@@ -9,8 +9,9 @@ function ProductsPage() {
     category: "",
     price: "",
     description: "",
-    image: "", // New field for the image URL
+    image: "",
   });
+  const [cart, setCart] = useState([]);
 
   // FETCH PRODUCTS ON LOAD
   useEffect(() => {
@@ -67,6 +68,12 @@ function ProductsPage() {
       .catch((err) => console.error("Error updating product:", err));
   }
 
+  // ADD TO CART
+  function handleAddToCart(product) {
+    setCart([...cart, product]);
+    alert(`${product.name} added to cart!`);
+  }
+
   return (
     <div className="products-container">
       <h2>Manage Your Products</h2>
@@ -75,16 +82,31 @@ function ProductsPage() {
       <div className="product-form">
         <h3>Add New Product:</h3>
         <form onSubmit={handleSubmit}>
-          <input type="text" name="name" value={newProduct.name} onChange={handleChange} placeholder="Product Name" required />
-          <input type="text" name="category" value={newProduct.category} onChange={handleChange} placeholder="Category" required />
-          <input type="number" name="price" value={newProduct.price} onChange={handleChange} placeholder="Price" required />
-          <textarea name="description" value={newProduct.description} onChange={handleChange} placeholder="Description" required />
-          <input type="text" name="image" value={newProduct.image} onChange={handleChange} placeholder="Image URL" required />
+          <div className="form-group">
+            <label>Product Name:</label>
+            <input type="text" name="name" value={newProduct.name} onChange={handleChange} required />
+          </div>
+          <div className="form-group">
+            <label>Category:</label>
+            <input type="text" name="category" value={newProduct.category} onChange={handleChange} required />
+          </div>
+          <div className="form-group">
+            <label>Price:</label>
+            <input type="number" name="price" value={newProduct.price} onChange={handleChange} required />
+          </div>
+          <div className="form-group">
+            <label>Description:</label>
+            <textarea name="description" value={newProduct.description} onChange={handleChange} required />
+          </div>
+          <div className="form-group">
+            <label>Image URL:</label>
+            <input type="text" name="image" value={newProduct.image} onChange={handleChange} required />
+          </div>
           <button type="submit">Add Product</button>
         </form>
       </div>
 
-      {/* PRODUCT LIST IN A 4-COLUMN GRID */}
+      {/* PRODUCT LIST */}
       <div className="product-list">
         <h3>Products</h3>
         {products.length > 0 ? (
@@ -97,7 +119,8 @@ function ProductsPage() {
                 <p><strong>Price:</strong> ${prod.price}</p>
                 <p>{prod.description}</p>
                 <button onClick={() => handleDelete(prod.id)}>Delete</button>
-                
+                <button onClick={() => handleAddToCart(prod)}>Add to Cart</button>
+
                 {/* UPDATE FORM */}
                 <form
                   onSubmit={(e) => {
@@ -107,11 +130,26 @@ function ProductsPage() {
                     handleUpdate(prod.id, updatedProduct);
                   }}
                 >
-                  <input name="name" type="text" defaultValue={prod.name} required />
-                  <input name="category" type="text" defaultValue={prod.category} required />
-                  <input name="price" type="number" defaultValue={prod.price} required />
-                  <textarea name="description" defaultValue={prod.description} required />
-                  <input name="image" type="text" defaultValue={prod.image} required />
+                  <div className="form-group">
+                    <label>Name:</label>
+                    <input name="name" type="text" defaultValue={prod.name} required />
+                  </div>
+                  <div className="form-group">
+                    <label>Category:</label>
+                    <input name="category" type="text" defaultValue={prod.category} required />
+                  </div>
+                  <div className="form-group">
+                    <label>Price:</label>
+                    <input name="price" type="number" defaultValue={prod.price} required />
+                  </div>
+                  <div className="form-group">
+                    <label>Description:</label>
+                    <textarea name="description" defaultValue={prod.description} required />
+                  </div>
+                  <div className="form-group">
+                    <label>Image URL:</label>
+                    <input name="image" type="text" defaultValue={prod.image} required />
+                  </div>
                   <button type="submit">Update</button>
                 </form>
               </div>
@@ -119,6 +157,22 @@ function ProductsPage() {
           </div>
         ) : (
           <p>No products available.</p>
+        )}
+      </div>
+
+      {/* CART SECTION */}
+      <div className="cart-section">
+        <h3>Cart</h3>
+        {cart.length > 0 ? (
+          <ul>
+            {cart.map((item, index) => (
+              <li key={index}>
+                {item.name} - ${item.price}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>Your cart is empty.</p>
         )}
       </div>
     </div>

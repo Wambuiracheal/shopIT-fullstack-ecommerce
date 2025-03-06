@@ -1,44 +1,68 @@
+import React from "react";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "./App.css";
+import { RouterProvider, createBrowserRouter } from "react-router-dom"; // Use RouterProvider
 import { Provider } from "react-redux";
-import store from "./store.js";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { configureStore } from "@reduxjs/toolkit";
+import "./App.css";
 
+// Components
 import Layout from "./components/Layout";
-import App from "./App";
+import Productspage from "./pages/Productspage";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import ProductListing from "./components/ProductListing";
 import Cart from "./components/Cart";
 import Checkout from "./components/Checkout";
 import Orders from "./components/Orders";
+import Payment from "./components/Payment"; // Ensure Payment is imported
 import Mpesa from "./components/Mpesa";
+import App from "./App";
 
+// Pages
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import ForgotPassword from "./pages/Forgotpassword";
-
 import DashboardPage from "./pages/DashboardPage";
 import SellerDashboard from "./pages/SellerDashboard";
 import BuyerDashboard from "./pages/BuyerDashboard";
-
 import UsersManagement from "./pages/Usersmanagement";
 import ProductsManagement from "./pages/Productsmanagement";
-import Settings from "./pages/Settings"
+import Settings from "./pages/Settings";
 
-const route = createBrowserRouter([
+// Redux
+import cartReducer from "./features/cartSlice";
+
+// Redux Store Configuration
+const store = configureStore({
+  reducer: {
+    cart: cartReducer,
+  },
+});
+
+// // App Component
+// function App() {
+//   return (
+//     <Provider store={store}>
+//       <Layout /> {/* Render Layout directly */}
+//     </Provider>
+//   );
+// }
+
+// Define routes using createBrowserRouter
+const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
     children: [
-      { path: "/", element: <App /> },
+      { path: "/", element: <App /> }, // Use Productspage as the index route
       { path: "/about", element: <About /> },
       { path: "/contact", element: <Contact /> },
       { path: "/products", element: <ProductListing /> },
       { path: "/cart", element: <Cart /> },
       { path: "/checkout", element: <Checkout /> },
       { path: "/orders", element: <Orders /> },
+      { path: "/payment", element: <Payment /> },
       { path: "/mpesa", element: <Mpesa /> },
 
       // Authentication
@@ -54,15 +78,16 @@ const route = createBrowserRouter([
       // Management Pages
       { path: "/users-management", element: <UsersManagement /> },
       { path: "/products-management", element: <ProductsManagement /> },
-      {path: "/site-settings", element: <Settings />}
+      { path: "/site-settings", element: <Settings /> },
     ],
   },
 ]);
 
+// Render the Application
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <Provider store={store}>
-      <RouterProvider router={route} />
-    </Provider>
+    <RouterProvider router={router} /> {/* Use RouterProvider here */}
   </StrictMode>
 );
+
+export default App;

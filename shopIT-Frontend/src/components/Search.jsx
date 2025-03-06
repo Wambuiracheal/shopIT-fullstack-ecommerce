@@ -1,19 +1,22 @@
-import React from 'react'
-import {FaSearch} from 'react-icons/fa'
+import React from 'react';
+import { FaSearch } from 'react-icons/fa';
 
-function Search({onSearch}){
-    function handleSearch(e){
-        onSearch(e.target.value)
-    }
-    return(
-        <>
-            <FaSearch className='search-icon' size={9}/>
-            <input type='text' placeholder='search for an item here...' onChange={handleSearch} className='input-field'/>
-            
-        </>
+function Search({ onSearch }) {
+  function handleSearch(e) {
+    onSearch(e.target.value);
+  }
 
-    )
-
+  return (
+    <div className="search-container">
+      <FaSearch className="search-icon" size={16} />
+      <input
+        type="text"
+        placeholder="Search for an item here..."
+        onChange={handleSearch}
+        className="input-field"
+      />
+    </div>
+  );
 }
 
-export default Search
+export default Search;

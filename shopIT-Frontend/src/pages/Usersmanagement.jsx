@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const url = "http://127.0.0.1:5000/users";
+const url = "http://127.0.0.1:5555/users";
 
 function Users() {
   const [users, setUsers] = useState([]);

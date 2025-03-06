@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../features/cartSlice";
 
 const url = "http://127.0.0.1:5555/products";
 
 function ProductsPage() {
+  const dispatch = useDispatch();
   const [products, setProducts] = useState([]);
   const [newProduct, setNewProduct] = useState({
     name: "",
@@ -67,6 +70,12 @@ function ProductsPage() {
       .catch((err) => console.error("Error updating product:", err));
   }
 
+  // ADD PRODUCT TO CART
+  function handleAddToCart(product) {
+    dispatch(addToCart(product));
+    alert(`${product.name} added to cart!`);
+  }
+
   return (
     <div className="products-container">
       <h2>Manage Your Products</h2>
@@ -96,8 +105,13 @@ function ProductsPage() {
                 <p><strong>Category:</strong> {prod.category}</p>
                 <p><strong>Price:</strong> ${prod.price}</p>
                 <p>{prod.description}</p>
+
+                {/* ADD TO CART BUTTON */}
+                <button onClick={() => handleAddToCart(prod)}>Add to Cart</button>
+
+                {/* DELETE BUTTON */}
                 <button onClick={() => handleDelete(prod.id)}>Delete</button>
-                
+
                 {/* UPDATE FORM */}
                 <form
                   onSubmit={(e) => {

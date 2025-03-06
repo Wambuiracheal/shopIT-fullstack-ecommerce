@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-function App() {
+function Payment() {
   const [phone, setPhone] = useState("254");
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   // Handle phone number input with validation
   const handlePhoneChange = (e) => {
@@ -20,9 +22,11 @@ function App() {
     setPhone(input);
   };
 
+  // Handle payment submission
   const handlePay = (e) => {
     e.preventDefault();
 
+    // Validate phone number and amount
     if (!phone || phone.length !== 12 || !amount) {
       alert("Please enter a valid phone number and amount.");
       return;
@@ -30,6 +34,7 @@ function App() {
 
     setLoading(true);
 
+    // Send payment request to the server
     axios
       .post(
         "http://127.0.0.1:5000/mpesa/pay",
@@ -39,6 +44,7 @@ function App() {
       .then((response) => {
         console.log("Payment Response:", response.data);
         alert("Payment successful! Check your phone for confirmation.");
+        navigate("/orders"); // Redirect to orders page after payment
       })
       .catch((error) => {
         console.error("Payment Error:", error);
@@ -90,4 +96,4 @@ function App() {
   );
 }
 
-export default App;
+export default Payment;
