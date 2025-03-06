@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const url = "http://127.0.0.1:5555/products"
+const url = "http://127.0.0.1:5000/products"
 
 function ProductsPage() {
   const [products, setProducts] = useState([]);

@@ -20,6 +20,7 @@ import BuyerDashboard from './pages/BuyerDashboard'
 import Buyerspage from './pages/Buyerspage.jsx'
 import Productspage from './pages/Productspage'
 import ForgotPassword from './pages/Forgotpassword'
+import Mpesa from './components/Mpesa'
 
 const route = createBrowserRouter([
   {
@@ -85,6 +86,10 @@ const route = createBrowserRouter([
       {
         path: '/forgot-password',
         element: <ForgotPassword />
+      },
+      {
+        path: '/mpesa',
+        element: <Mpesa />
       }
     ],
   },
