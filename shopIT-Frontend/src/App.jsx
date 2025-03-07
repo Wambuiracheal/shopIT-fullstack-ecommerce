@@ -17,6 +17,7 @@ const products = [
 function App() {
   const navigate = useNavigate();
   const [cart, setCart] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");  // New state for search query
 
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -31,11 +32,21 @@ function App() {
     setCart((prevCart) => [...prevCart, product]);
   };
 
+  // Filter products based on the search query
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  // Handle search input
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
+
   return (
     <div>
       <nav className="navbar-homepage">
         <div className="search-container">
-          <Search />
+          <Search onSearch={handleSearch} />  {/* Pass handleSearch to Search component */}
         </div>
         <div id="profile-container">
           <img
@@ -51,24 +62,25 @@ function App() {
         </div>
       </nav>
 
-      {/* <div className="advertisement-banner">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1y93m1vubnMZLZ6XDg6WSd6DF32eBSttumkKKwfY_ZcqMes3_7zlg5D0J6gUZM3djmuU&usqp=CAU" alt="Advertisement" />
-      </div> */}
-
+      {/* Product grid with filtered products */}
       <div id="content">
         <div id="product-grid">
-          {products.map((product) => (
-            <div className="product-card" key={product.id}>
-              <img src={product.image} alt={product.name} loading="lazy" />
-              <h3>{product.name}</h3>
-              <p>{product.description}</p>
-              <p className="price">${product.price}</p>
-              <p className="category">{product.category}</p>
-              <button className="add-to-cart" onClick={() => addToCart(product)}>
-                Add to Cart
-              </button>
-            </div>
-          ))}
+          {filteredProducts.length > 0 ? (
+            filteredProducts.map((product) => (
+              <div className="product-card" key={product.id}>
+                <img src={product.image} alt={product.name} loading="lazy" />
+                <h3>{product.name}</h3>
+                <p>{product.description}</p>
+                <p className="price">${product.price}</p>
+                <p className="category">{product.category}</p>
+                <button className="add-to-cart" onClick={() => addToCart(product)}>
+                  Add to Cart
+                </button>
+              </div>
+            ))
+          ) : (
+            <p>No products found for "{searchQuery}"</p>
+          )}
         </div>
       </div>
     </div>
