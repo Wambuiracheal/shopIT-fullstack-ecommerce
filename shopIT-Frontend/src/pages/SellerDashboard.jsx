@@ -1,31 +1,27 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-function AdminDashboard() {
+function SellerDashboard() {
   const navigate = useNavigate();
 
   return (
     <div className="dashboard-container">
-      <h2>Welcome!</h2>
-      <p>Manage users,  products, and platform settings.</p>
+      <h2>Welcome, Seller!</h2>
+      <p>Manage your buyers and products.</p>
 
-      {/* ADMIN DASHBOARD CARDS */}
+      {/* SELLER DASHBOARD CARDS */}
       <div className="cards-container">
-        <div className="card" onClick={() => navigate("/users-management")}> 
-          <h3>Users</h3>
-          <p>View and manage all users (buyers & sellers).</p>
+        <div className="card" onClick={() => navigate("/buyers-page")}> 
+          <h3>Buyers</h3>
+          <p>View and manage buyers.</p>
         </div>
-        <div className="card" onClick={() => navigate("/products-management")}> 
+        <div className="card" onClick={() => navigate("/products-page")}> 
           <h3>Products</h3>
-          <p>View and manage all products.</p>
-        </div>
-        <div className="card" onClick={() => navigate("/site-settings")}> 
-          <h3>Settings</h3>
-          <p>Manage platform settings and configurations.</p>
+          <p>View and manage your products.</p>
         </div>
       </div>
     </div>
   );
 }
 
-export default AdminDashboard;
+export default SellerDashboard;

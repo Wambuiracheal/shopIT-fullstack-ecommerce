@@ -75,8 +75,13 @@ function Users() {
 
   return (
     <div className="container">
+<<<<<<< HEAD:shopIT-Frontend/src/pages/Buyerspage.jsx
+      <h2>Seller: Manage Buyers</h2>
+      <p>As a seller, you can add, update, and delete buyers.</p>
+=======
       <h2>Admin: Manage Users</h2>
       <p>Add, update, and delete users.</p>
+>>>>>>> 50e9355d35caa3ba91be532813213324c7cdba12:shopIT-Frontend/src/pages/Usersmanagement.jsx
 
       {/* Add New User Form */}
       {!editingUser && (
