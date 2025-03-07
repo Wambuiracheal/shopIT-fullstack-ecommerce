@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './App.css'
@@ -21,15 +20,6 @@ import BuyerDashboard from './pages/BuyerDashboard'
 import Buyerspage from './pages/Buyerspage.jsx'
 import Productspage from './pages/Productspage'
 import ForgotPassword from './pages/Forgotpassword'
-=======
-import React from "react";
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import { RouterProvider, createBrowserRouter } from "react-router-dom"; // Use RouterProvider
-import { Provider } from "react-redux";
-import { configureStore } from "@reduxjs/toolkit";
-import "./App.css";
->>>>>>> 50e9355d35caa3ba91be532813213324c7cdba12
 
 // Components
 import Layout from "./components/Layout";
