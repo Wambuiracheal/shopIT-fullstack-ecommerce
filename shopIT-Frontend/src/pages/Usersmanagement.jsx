@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
-const url = "http://127.0.0.1:5555/buyers-page"
-function Buyers() {
+const url = "http://127.0.0.1:5555/users";
+
+function Users() {
   const [users, setUsers] = useState([]);
-  const [newUser, setNewUser] = useState({ name: "", email: "", role: "buyer" });
+  const [newUser, setNewUser] = useState({ name: "", email: "", role: "" });
   const [editingUser, setEditingUser] = useState(null);
-  const navigate = useNavigate();
 
   // Fetch users from API
   useEffect(() => {
-    fetch(`${url}`)
+    fetch(url)
       .then((res) => res.json())
       .then((data) => setUsers(data))
       .catch((err) => console.error("Error fetching users:", err));
-  }, [url]);
+  }, []);
 
-  // Handle input change for adding/updating users
+  // Handle input changes for adding/updating users
   function handleChange(e) {
     const { name, value } = e.target;
     if (editingUser) {
@@ -29,7 +28,7 @@ function Buyers() {
   // Add a new user
   function handleSubmit(e) {
     e.preventDefault();
-    fetch(`${url}`, {
+    fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newUser),
@@ -37,19 +36,16 @@ function Buyers() {
       .then((res) => res.json())
       .then((newUserData) => {
         setUsers((prev) => [...prev, newUserData]);
-        setNewUser({ name: "", email: "", role: "buyer" });
+        setNewUser({ name: "", email: "", role: "" });
       })
       .catch((err) => console.error("Error adding user:", err));
   }
 
   // Delete a user
   function handleDelete(id) {
-    fetch(`${url}/${id}`, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-    })
+    fetch(`${url}/${id}`, { method: "DELETE" })
       .then(() => {
-        setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+        setUsers((prev) => prev.filter((user) => user.id !== id));
       })
       .catch((err) => console.error("Error deleting user:", err));
   }
@@ -69,8 +65,8 @@ function Buyers() {
     })
       .then((res) => res.json())
       .then((updatedUser) => {
-        setUsers((prevUsers) =>
-          prevUsers.map((user) => (user.id === updatedUser.id ? updatedUser : user))
+        setUsers((prev) =>
+          prev.map((user) => (user.id === updatedUser.id ? updatedUser : user))
         );
         setEditingUser(null);
       })
@@ -79,60 +75,40 @@ function Buyers() {
 
   return (
     <div className="container">
+<<<<<<< HEAD:shopIT-Frontend/src/pages/Buyerspage.jsx
       <h2>Seller: Manage Buyers</h2>
       <p>As a seller, you can add, update, and delete buyers.</p>
+=======
+      <h2>Admin: Manage Users</h2>
+      <p>Add, update, and delete users.</p>
+>>>>>>> 50e9355d35caa3ba91be532813213324c7cdba12:shopIT-Frontend/src/pages/Usersmanagement.jsx
 
       {/* Add New User Form */}
       {!editingUser && (
         <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="name"
-            value={newUser.name}
-            onChange={handleChange}
-            placeholder="Name"
-            required
-          />
-          <input
-            type="email"
-            name="email"
-            value={newUser.email}
-            onChange={handleChange}
-            placeholder="Email"
-            required
-          />
-          <button type="submit" className="add-btn">Add Buyer</button>
+          <input type="text" name="name" value={newUser.name} onChange={handleChange} placeholder="Name" required />
+          <input type="email" name="email" value={newUser.email} onChange={handleChange} placeholder="Email" required />
+          <button type="submit" className="add-btn">Add User</button>
         </form>
       )}
 
       {/* Edit User Form */}
       {editingUser && (
         <form onSubmit={handleUpdate}>
-          <input
-            type="text"
-            name="name"
-            value={editingUser.name}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="email"
-            name="email"
-            value={editingUser.email}
-            onChange={handleChange}
-            required
-          />
+          <input type="text" name="name" value={editingUser.name} onChange={handleChange} required />
+          <input type="email" name="email" value={editingUser.email} onChange={handleChange} required />
+          <input type="text" name="role" value={editingUser.role} onChange={handleChange} required />
           <button type="submit" className="update-btn">Update</button>
           <button type="button" className="cancel-btn" onClick={() => setEditingUser(null)}>Cancel</button>
         </form>
       )}
 
       {/* Users List */}
-      <h3>Buyers List</h3>
+      <h3>Users List</h3>
       <ul>
         {users.map((user) => (
           <li key={user.id}>
-            <strong>{user.name}</strong> ({user.email})
+            <strong>{user.name}</strong> ({user.email}) - <em>{user.role}</em>
             <div>
               <button className="update-btn" onClick={() => handleEdit(user)}>Edit</button>
               <button className="delete-btn" onClick={() => handleDelete(user.id)}>Delete</button>
@@ -144,4 +120,4 @@ function Buyers() {
   );
 }
 
-export default Buyers;
+export default Users;

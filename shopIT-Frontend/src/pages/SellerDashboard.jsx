@@ -7,7 +7,7 @@ function SellerDashboard() {
   return (
     <div className="dashboard-container">
       <h2>Welcome, Seller!</h2>
-      <p>Manage your profile, buyers, and products easily.</p>
+      <p>Manage your buyers and products.</p>
 
       {/* SELLER DASHBOARD CARDS */}
       <div className="cards-container">

@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const url = "http://127.0.0.1:5000/products";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../features/cartSlice";
 
 function ProductsPage() {
+  const dispatch = useDispatch();
   const [products, setProducts] = useState([]);
   const [newProduct, setNewProduct] = useState({
     name: "",
@@ -14,7 +17,7 @@ function ProductsPage() {
   });
 
   useEffect(() => {
-    fetch(`${url}`)
+    fetch(url)
       .then((res) => res.json())
       .then((data) => setProducts(data))
       .catch((err) => console.error("Error fetching products:", err));
@@ -27,7 +30,7 @@ function ProductsPage() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    fetch(`${url}`, {
+    fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newProduct),
@@ -36,8 +39,20 @@ function ProductsPage() {
       .then((newProd) => {
         setProducts((prev) => [...prev, newProd]);
         setNewProduct({ name: "", price: 0, description: "", category: "", image: "" });
+        setProducts([...products, newProd]);
+        setNewProduct({ name: "", category: "", price: "", description: "", image: "" });
       })
       .catch((err) => console.error("Error adding product:", err));
+  }
+
+  // DELETE PRODUCT
+  function handleDelete(id) {
+    fetch(`${url}/${id}`, { method: "DELETE" })
+      .then((res) => res.json())
+      .then(() => {
+        setProducts(products.filter((prod) => prod.id !== id));
+      })
+      .catch((err) => console.error("Error deleting product:", err));
   }
 
   function handleUpdate(id, updatedProduct) {
@@ -57,6 +72,10 @@ function ProductsPage() {
     fetch(`${url}/${id}`, { method: "DELETE" })
       .then(() => setProducts((prev) => prev.filter((prod) => prod.id !== id)))
       .catch((err) => console.error("Error deleting product:", err));
+  // ADD PRODUCT TO CART
+  function handleAddToCart(product) {
+    dispatch(addToCart(product));
+    alert(`${product.name} added to cart!`);
   }
 
   return (
@@ -152,6 +171,5 @@ const UpdateForm = styled.form`
   margin-top: 10px;
   input { padding: 8px; border: 1px solid #ccc; border-radius: 5px; }
   button { background: blue; color: white; padding: 5px; border: none; border-radius: 5px; cursor: pointer; }
-`;
-
+`;}
 export default ProductsPage;

@@ -7,7 +7,7 @@ function Navbar() {
         <>
             <nav id='navbar'>
                 <div id='logo'>
-                   <img src={logo} alt='company logo' id='logo'/>
+                    <img src={logo} alt='company logo' id='logo'/>
                 </div>
                 <Link id='nav-link' to={'/'}><FaHome size={20}/> Home</Link>
                 <Link id='nav-link' to={'/about'}><FaInfoCircle size={20}/> About</Link>
