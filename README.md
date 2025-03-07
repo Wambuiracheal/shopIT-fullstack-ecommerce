@@ -273,3 +273,7 @@ Final Thoughts
 --------------
 
 ShopIT is a comprehensive platform designed to simplify online buying and selling with secure authentication and a user-friendly interface. Whether you're a buyer looking for a smooth shopping experience or a seller managing product listings, ShopIT provides all the essential features in one robust system.
+
+
+
+<!-- abdirahman -->
