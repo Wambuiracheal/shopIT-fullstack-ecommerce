@@ -79,8 +79,8 @@ function Buyers() {
 
   return (
     <div className="container">
-      <h2>Admin: Manage Buyers</h2>
-      <p>As an admin, you can add, update, and delete buyers.</p>
+      <h2>Seller: Manage Buyers</h2>
+      <p>As a seller, you can add, update, and delete buyers.</p>
 
       {/* Add New User Form */}
       {!editingUser && (

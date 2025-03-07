@@ -11,10 +11,6 @@ function SellerDashboard() {
 
       {/* SELLER DASHBOARD CARDS */}
       <div className="cards-container">
-        <div className="card" onClick={() => navigate("/seller-profile")}> 
-          <h3>Seller Profile</h3>
-          <p>Manage your account details.</p>
-        </div>
         <div className="card" onClick={() => navigate("/buyers-page")}> 
           <h3>Buyers</h3>
           <p>View and manage buyers.</p>
