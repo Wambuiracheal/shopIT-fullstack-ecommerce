@@ -17,12 +17,10 @@ import SignupPage from './pages/SignupPage'
 import DashboardPage from './pages/DashboardPage'
 import SellerDashboard from './pages/SellerDashboard'
 import BuyerDashboard from './pages/BuyerDashboard'
-import Buyerspage from './pages/Buyerspage.jsx'
 import Productspage from './pages/Productspage'
-import ForgotPassword from './pages/Forgotpassword'
+
 
 // Components
-import Layout from "./components/Layout";
 import Productspage from "./pages/Productspage";
 import About from "./components/About";
 import Contact from "./components/Contact";
@@ -37,13 +35,12 @@ import App from "./App";
 // Pages
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
-import ForgotPassword from "./pages/Forgotpassword";
 import DashboardPage from "./pages/DashboardPage";
 import SellerDashboard from "./pages/SellerDashboard";
 import BuyerDashboard from "./pages/BuyerDashboard";
-import UsersManagement from "./pages/Usersmanagement";
-import ProductsManagement from "./pages/Productsmanagement";
-import Settings from "./pages/Settings";
+import Productspage from "./pages/Productspage";
+
+
 
 // Redux
 import cartReducer from "./features/cartSlice";
@@ -83,17 +80,12 @@ const router = createBrowserRouter([
       // Authentication
       { path: "/login", element: <LoginPage /> },
       { path: "/signup", element: <SignupPage /> },
-      { path: "/forgot-password", element: <ForgotPassword /> },
 
       // Dashboards
       { path: "/dashboard", element: <DashboardPage /> },
       { path: "/seller-dashboard", element: <SellerDashboard /> },
       { path: "/buyer-dashboard", element: <BuyerDashboard /> },
 
-      // Management Pages
-      { path: "/users-management", element: <UsersManagement /> },
-      { path: "/products-management", element: <ProductsManagement /> },
-      { path: "/site-settings", element: <Settings /> },
     ],
   },
 ]);
