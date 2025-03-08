@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaShoppingCart, FaUserCircle } from "react-icons/fa";
 
-const url = "http://127.0.0.1:5555/products";
+const url = "http://127.0.0.1:5000/products";
 
 function Buyers() {
   const [products, setProducts] = useState([]);
