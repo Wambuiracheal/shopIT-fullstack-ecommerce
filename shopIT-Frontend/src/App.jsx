@@ -17,6 +17,7 @@ const products = [
 function App() {
   const navigate = useNavigate();
   const [cart, setCart] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState(products);
 
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -31,11 +32,18 @@ function App() {
     setCart((prevCart) => [...prevCart, product]);
   };
 
+  const handleSearch = (query) => {
+    const filtered = products.filter((product) =>
+      product.name.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredProducts(filtered);
+  };
+
   return (
     <div>
       <nav className="navbar-homepage">
         <div className="search-container">
-          <Search />
+          <Search onSearch={handleSearch} />
         </div>
         <div id="profile-container">
           <img
@@ -51,13 +59,9 @@ function App() {
         </div>
       </nav>
 
-      {/* <div className="advertisement-banner">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1y93m1vubnMZLZ6XDg6WSd6DF32eBSttumkKKwfY_ZcqMes3_7zlg5D0J6gUZM3djmuU&usqp=CAU" alt="Advertisement" />
-      </div> */}
-
       <div id="content">
         <div id="product-grid">
-          {products.map((product) => (
+          {filteredProducts.map((product) => (
             <div className="product-card" key={product.id}>
               <img src={product.image} alt={product.name} loading="lazy" />
               <h3>{product.name}</h3>

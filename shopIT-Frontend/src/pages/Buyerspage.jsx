@@ -7,7 +7,7 @@ function Buyers() {
   const [newUser, setNewUser] = useState({ name: "", email: "", role: "buyer" });
   const [editingUser, setEditingUser] = useState(null);
   const navigate = useNavigate();
-
+  
   // Fetch users from API
   useEffect(() => {
     fetch(`${url}`)

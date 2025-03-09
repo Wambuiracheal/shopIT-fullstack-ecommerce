@@ -1,19 +1,33 @@
-import React from 'react'
-import {FaSearch} from 'react-icons/fa'
+import React, { useState } from 'react';
+import { FaSearch } from 'react-icons/fa';
 
-function Search({onSearch}){
-    function handleSearch(e){
-        onSearch(e.target.value)
+function Search({ onSearch, products = [] }) { // Default to empty array
+    const [searchQuery, setSearchQuery] = useState("");
+
+    function handleSearch(e) {
+        const value = e.target.value;
+        setSearchQuery(value);
+        onSearch(value);
     }
-    return(
-        <>
-            <FaSearch className='search-icon' size={9}/>
-            <input type='text' placeholder='search for an item here...' onChange={handleSearch} className='input-field'/>
-            
-        </>
 
-    )
+    // Ensure products is an array before filtering
+    const filteredProducts = Array.isArray(products) 
+        ? products.filter((product) =>
+            product.name.toLowerCase().includes(searchQuery.toLowerCase())
+        ) 
+        : [];
 
+    return (
+        <div className="search-container">
+            <input 
+                type='text' 
+                placeholder='Search for an item...' 
+                value={searchQuery} 
+                onChange={handleSearch} 
+                className='input-field' 
+            />
+        </div>
+    );
 }
 
-export default Search
+export default Search;
