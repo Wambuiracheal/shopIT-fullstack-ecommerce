@@ -44,17 +44,22 @@ function ProductsPage() {
   // ADD NEW PRODUCT
   function handleSubmit(e) {
     e.preventDefault();
+    console.log("Submitting to:", url);
+    console.log("Product Data:", newProduct);
+
     fetch(`${url}`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { 
+        "Content-Type": "application/json"
+       },
       body: JSON.stringify(newProduct),
     })
       .then((res) => res.json())
-      .then((newProd) => {
-        setProducts([...products, newProd]);
-        setNewProduct({ name: "", category: "", price: "", description: "", image:"" });
-      })
-      .catch((err) => console.error("Error adding product:", err));
+      .then(newProd => setProducts([...products, newProd]),
+        setNewProduct({ name: "", category: "", price: "", description: "", image:"" })
+  )
+  .catch(error => console.log(error))
+    
   }
 
   // DELETE PRODUCT
