@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { loginUser } from "../services/authService";
 import { useNavigate } from "react-router-dom";
-import * as jwt_decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import eye icons
 
 function LoginPage() {
@@ -24,7 +24,7 @@ function LoginPage() {
         const token = localStorage.getItem("token");
 
         if (token) {
-          const decoded = jwt_decode(token);
+          const decoded = jwtDecode(token);
 
           if (decoded.role === "seller") {
             navigate("/seller-dashboard");
