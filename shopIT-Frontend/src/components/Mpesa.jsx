@@ -59,7 +59,7 @@ function MpesaPayment() {
 
   return (
     <div className="container">
-      <h2 className="title">Marksmatt</h2>
+      <h2 className="title">shopIT</h2>
       <p className="subtitle">
         Pay with <span className="mpesa-text">M<span className="hyphen">-</span>pesa</span>
       </p>
