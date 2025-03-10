@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import * as jwt_decode from 'jwt-decode';
+import { jwtDecode } from "jwt-decode";
 
 function DashboardPage() {
   const [role, setRole] = useState(null);
@@ -14,7 +14,7 @@ function DashboardPage() {
     }
 
     try {
-      const decoded = jwt_decode(token);
+      const decoded = jwtDecode(token);
       setRole(decoded.role);
 
       if (decoded.exp * 1000 < Date.now()) {
