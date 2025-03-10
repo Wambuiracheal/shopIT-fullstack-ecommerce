@@ -3,7 +3,7 @@ import { useNavigate } from "react-router"
 import { FaShoppingCart, FaUserCircle } from "react-icons/fa";
 
 const url = "http://127.0.0.1:5000/products";
-const userUrl = "http://127.0.0.1:5000/buyer"; // API endpoint to fetch logged-in buyer
+const userUrl = "http://127.0.0.1:5000/users?role=buyer"; // API endpoint to fetch logged-in buyer
 
 function Buyers() {
   const navigate = useNavigate([])

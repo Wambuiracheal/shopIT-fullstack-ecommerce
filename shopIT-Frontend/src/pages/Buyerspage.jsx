@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const url = "http://127.0.0.1:5555/buyers-page"
+const url = "http://127.0.0.1:5000/buyers-page"
 function Buyers() {
   const [users, setUsers] = useState([]);
   const [newUser, setNewUser] = useState({ name: "", email: "", role: "buyer" });

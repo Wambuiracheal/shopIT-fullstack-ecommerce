@@ -17,6 +17,7 @@ import SignupPage from './pages/SignupPage'
 import DashboardPage from './pages/DashboardPage'
 import SellerDashboard from './pages/SellerDashboard'
 import BuyerDashboard from './pages/BuyerDashboard'
+import SellerProfile from './pages/SellerProfile'
 import Buyerspage from './pages/Buyerspage.jsx'
 import Productspage from './pages/Productspage'
 import ForgotPassword from './pages/Forgotpassword'
@@ -90,6 +91,10 @@ const route = createBrowserRouter([
       {
         path: '/mpesa',
         element: <Mpesa />
+      },
+      {
+        path: '/seller-profile',
+        element: <SellerProfile />
       }
     ],
   },
