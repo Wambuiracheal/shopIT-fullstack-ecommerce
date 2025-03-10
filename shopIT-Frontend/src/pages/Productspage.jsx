@@ -150,7 +150,6 @@ function ProductsPage() {
                 <strong>Description: </strong> {prod.description} <br />
                 {prod.image && <img src={prod.image} alt="product" />} <br />
                 <button onClick={(event) => handleDelete(event, prod.id)}>Delete</button>
-      
                 
                 {/* UPDATE FORM */}
                 <form onSubmit={handleUpdate} id="update-form">
