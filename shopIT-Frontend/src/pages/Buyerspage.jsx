@@ -1,147 +1,110 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
-const url = "http://127.0.0.1:5555/buyers-page"
-function Buyers() {
-  const [users, setUsers] = useState([]);
-  const [newUser, setNewUser] = useState({ name: "", email: "", role: "buyer" });
-  const [editingUser, setEditingUser] = useState(null);
-  const navigate = useNavigate();
-  
-  // Fetch users from API
+const url = "http://127.0.0.1:5000/user";
+
+function BuyersPage() {
+  const [buyers, setBuyers] = useState([]);
+  const [newBuyer, setNewBuyer] = useState({
+    name: "",
+    email: "",
+  });
+  const [orders, setOrders] = useState([]);
+  const [selectedBuyer, setSelectedBuyer] = useState(null);
+
+  // FETCH BUYERS ON LOAD
   useEffect(() => {
-    fetch(`${url}`)
+    fetch(`${url}`, { method: "GET" })
       .then((res) => res.json())
-      .then((data) => setUsers(data))
-      .catch((err) => console.error("Error fetching users:", err));
-  }, [url]);
+      .then((data) => setBuyers(data));
+  }, []);
 
-  // Handle input change for adding/updating users
+  // HANDLE INPUT CHANGE
   function handleChange(e) {
-    const { name, value } = e.target;
-    if (editingUser) {
-      setEditingUser((prev) => ({ ...prev, [name]: value }));
-    } else {
-      setNewUser((prev) => ({ ...prev, [name]: value }));
-    }
+    let name = e.target.name;
+    let value = e.target.value;
+    setNewBuyer({ ...newBuyer, [name]: value });
   }
 
-  // Add a new user
+  // ADD NEW BUYER
   function handleSubmit(e) {
     e.preventDefault();
     fetch(`${url}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newUser),
+      body: JSON.stringify(newBuyer),
     })
       .then((res) => res.json())
-      .then((newUserData) => {
-        setUsers((prev) => [...prev, newUserData]);
-        setNewUser({ name: "", email: "", role: "buyer" });
-      })
-      .catch((err) => console.error("Error adding user:", err));
+      .then((newB) => {
+        setBuyers([...buyers, newB]);
+        setNewBuyer({ name: "", email: "" });
+      });
   }
 
-  // Delete a user
-  function handleDelete(id) {
-    fetch(`${url}/${id}`, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-    })
-      .then(() => {
-        setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
-      })
-      .catch((err) => console.error("Error deleting user:", err));
-  }
-
-  // Set user to edit mode
-  function handleEdit(user) {
-    setEditingUser(user);
-  }
-
-  // Update an existing user
-  function handleUpdate(e) {
+  // DELETE BUYER
+  function handleDelete(e, id) {
     e.preventDefault();
-    fetch(`${url}/${editingUser.id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(editingUser),
-    })
+    fetch(`${url}/${id}`, { method: "DELETE" })
+      .then(() => {
+        setBuyers(buyers.filter((buyer) => buyer.id !== id));
+      });
+  }
+
+  // MANAGE ORDERS
+  function handleViewOrders(buyerId) {
+    fetch(`${url}/${buyerId}/orders`, { method: "GET" })
       .then((res) => res.json())
-      .then((updatedUser) => {
-        setUsers((prevUsers) =>
-          prevUsers.map((user) => (user.id === updatedUser.id ? updatedUser : user))
-        );
-        setEditingUser(null);
-      })
-      .catch((err) => console.error("Error updating user:", err));
+      .then((orders) => {
+        setOrders(orders);
+        setSelectedBuyer(buyerId);
+      });
   }
 
   return (
-    <div className="container">
-      <h2>Admin: Manage Buyers</h2>
-      <p>As an admin, you can add, update, and delete buyers.</p>
-
-      {/* Add New User Form */}
-      {!editingUser && (
+    <div className="buyers-container">
+      <h2>Manage Your Buyers</h2>
+      <div className="buyer-form">
+        <h3>Add New Buyer:</h3>
         <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="name"
-            value={newUser.name}
-            onChange={handleChange}
-            placeholder="Name"
-            required
-          />
-          <input
-            type="email"
-            name="email"
-            value={newUser.email}
-            onChange={handleChange}
-            placeholder="Email"
-            required
-          />
-          <button type="submit" className="add-btn">Add Buyer</button>
+          <label>
+            Name: <input type="text" name="name" value={newBuyer.name} onChange={handleChange} required />
+          </label>
+          <label>
+            Email: <input type="email" name="email" value={newBuyer.email} onChange={handleChange} required />
+          </label>
+          <button type="submit">Add Buyer</button>
         </form>
-      )}
-
-      {/* Edit User Form */}
-      {editingUser && (
-        <form onSubmit={handleUpdate}>
-          <input
-            type="text"
-            name="name"
-            value={editingUser.name}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="email"
-            name="email"
-            value={editingUser.email}
-            onChange={handleChange}
-            required
-          />
-          <button type="submit" className="update-btn">Update</button>
-          <button type="button" className="cancel-btn" onClick={() => setEditingUser(null)}>Cancel</button>
-        </form>
-      )}
-
-      {/* Users List */}
-      <h3>Buyers List</h3>
-      <ul>
-        {users.map((user) => (
-          <li key={user.id}>
-            <strong>{user.name}</strong> ({user.email})
-            <div>
-              <button className="update-btn" onClick={() => handleEdit(user)}>Edit</button>
-              <button className="delete-btn" onClick={() => handleDelete(user.id)}>Delete</button>
+      </div>
+      <div className="buyer-list">
+        <h3>Buyer List:</h3>
+        {buyers.length > 0 ? (
+          buyers.map((buyer) => (
+            <div key={buyer.id} className="buyer-card">
+              <strong>Name: </strong>{buyer.name}<br />
+              <strong>Email: </strong>{buyer.email}<br />
+              <button onClick={(event) => handleDelete(event, buyer.id)}>Delete</button>
+              <button onClick={() => handleViewOrders(buyer.id)}>View Orders</button>
             </div>
-          </li>
-        ))}
-      </ul>
+          ))
+        ) : (
+          <p>No buyers available.</p>
+        )}
+      </div>
+      {selectedBuyer && (
+        <div className="orders-section">
+          <h3>Orders for Buyer ID {selectedBuyer}:</h3>
+          {orders.length > 0 ? (
+            <ul>
+              {orders.map((order) => (
+                <li key={order.id}><strong>Order ID:</strong> {order.id}, <strong>Total:</strong> ${order.total_amount}, <strong>Status:</strong> {order.status}</li>
+              ))}
+            </ul>
+          ) : (
+            <p>No orders found for this buyer.</p>
+          )}
+        </div>
+      )}
     </div>
   );
 }
 
-export default Buyers;
+export default BuyersPage;
