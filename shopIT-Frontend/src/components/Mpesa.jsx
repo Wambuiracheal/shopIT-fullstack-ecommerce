@@ -5,21 +5,18 @@ import { useLocation } from "react-router-dom";
 function MpesaPayment() {
   const location = useLocation();
   const orderData = location.state?.orderData;
-  // Set initialAmount to the totalAmount from orderData or fallback to an empty string
   const initialAmount = orderData ? orderData.totalAmount : "";
 
   const [phone, setPhone] = useState("254");
-  const [amount] = useState(initialAmount); // No setter since it's not meant to be edited
+  const [amount] = useState(initialAmount);
   const [loading, setLoading] = useState(false);
 
-  // Handle phone number input with validation
   const handlePhoneChange = (e) => {
     let input = e.target.value;
-    // Ensure "254" is always there and restrict to 9 more digits
     if (!input.startsWith("254")) {
       input = "254";
     } else if (input.length > 12) {
-      input = input.slice(0, 12); // Max length 12 (254 + 9 digits)
+      input = input.slice(0, 12);
     }
     setPhone(input);
   };
@@ -59,13 +56,89 @@ function MpesaPayment() {
 
   return (
     <div className="container">
+      <style>
+        {`
+          .container {
+            max-width: 600px; /* Increased width */
+            margin: 50px auto;
+            padding: 30px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            font-family: Arial, sans-serif;
+          }
+
+          .title {
+            color: #ff6600;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 15px;
+          }
+
+          .subtitle {
+            font-size: 20px;
+            color: #444;
+            margin-bottom: 25px;
+          }
+
+          .mpesa-text {
+            color: #34a853;
+            font-weight: bold;
+            font-size: 24px;
+          }
+
+          .hyphen {
+            color: black;
+          }
+
+          .payment-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* Increased spacing */
+          }
+
+          .input-field {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+          }
+
+          .input-field:disabled {
+            background: #f5f5f5;
+          }
+
+          .pay-button {
+            background: #ff6600;
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background 0.3s ease-in-out;
+          }
+
+          .pay-button:hover {
+            background: #cc5500;
+          }
+
+          .pay-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+          }
+        `}
+      </style>
+
       <h2 className="title">shopIT</h2>
       <p className="subtitle">
         Pay with <span className="mpesa-text">M<span className="hyphen">-</span>pesa</span>
       </p>
 
       <form className="payment-form" onSubmit={handlePay}>
-        {/* Phone Number Input */}
         <input
           type="text"
           value={phone}
@@ -75,7 +148,6 @@ function MpesaPayment() {
           required
         />
 
-        {/* Amount Input - prefilled and disabled */}
         <input
           type="number"
           value={amount}
@@ -85,7 +157,6 @@ function MpesaPayment() {
           required
         />
 
-        {/* Pay Button */}
         <button type="submit" className="pay-button" disabled={loading}>
           {loading ? "Processing..." : "Pay Now"}
         </button>

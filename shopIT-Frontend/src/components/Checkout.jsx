@@ -4,7 +4,6 @@ import { useState } from "react";
 const Checkout = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  // Retrieve cart items from route state (if coming from another page)
   const cartItems = location.state?.cart || [];
   
   const totalPrice = cartItems.reduce(
@@ -19,7 +18,7 @@ const Checkout = () => {
     city: "",
     zip: "",
     country: "",
-    paymentMethod: "creditCard", // Change to "mpesa" if M-Pesa should be default
+    paymentMethod: "creditCard",
   });
 
   const [showReview, setShowReview] = useState(false);
@@ -28,7 +27,6 @@ const Checkout = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // This function handles order confirmation for non-M-Pesa payments.
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -55,19 +53,85 @@ const Checkout = () => {
     }
   };
 
-  // This function navigates to the M-Pesa payment dashboard.
   const handleProceedToPayment = () => {
     const orderData = {
       ...formData,
       items: cartItems,
       totalAmount: totalPrice,
     };
-    // Pass orderData as state to the mpesa dashboard
     navigate("/mpesa", { state: { orderData } });
   };
 
   return (
     <div className="checkout-container">
+      <style>
+        {`
+          .checkout-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-family: Arial, sans-serif;
+          }
+
+          h2, h3 {
+            text-align: center;
+            color: #ff6600;
+          }
+
+          .order-summary {
+            padding: 15px;
+            background: #fff5e6;
+            border-radius: 8px;
+            margin-bottom: 20px;
+          }
+
+          .order-summary p {
+            font-size: 16px;
+            margin: 5px 0;
+          }
+
+          form input, form select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+          }
+
+          button {
+            background: #ff6600;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 10px;
+            transition: background 0.3s ease-in-out;
+          }
+
+          button:hover {
+            background: #cc5500;
+          }
+
+          .order-review {
+            background: #fff5e6;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+          }
+
+          .order-review p {
+            font-size: 16px;
+            margin: 5px 0;
+          }
+        `}
+      </style>
+
       <h2>Checkout</h2>
 
       <div className="order-summary">
