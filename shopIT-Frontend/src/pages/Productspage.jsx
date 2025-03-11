@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../features/cartSlice";
 
 const url = "http://127.0.0.1:5000/products"
 
@@ -44,7 +46,7 @@ function ProductsPage() {
   // ADD NEW PRODUCT
   function handleSubmit(e) {
     e.preventDefault();
-    fetch(`${url}`, {
+    fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newProduct),
@@ -97,6 +99,12 @@ function ProductsPage() {
       .catch((err) => console.error("Error updating product:", err));
   }
 
+  // ADD PRODUCT TO CART
+  function handleAddToCart(product) {
+    dispatch(addToCart(product));
+    alert(`${product.name} added to cart!`);
+  }
+
   return (
     <div className="products-container">
       <h2>Manage Your Products</h2>
@@ -137,7 +145,7 @@ function ProductsPage() {
         </form>
       </div>
 
-      {/* PRODUCT LIST */}
+      {/* PRODUCT LIST IN A 4-COLUMN GRID */}
       <div className="product-list">
         <h3>Product List:</h3>
         <div className="grid-container">
