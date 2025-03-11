@@ -1,30 +1,67 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState } from "react";
 
 const SellerProfile = () => {
-  const user = useSelector((state) => state.auth.user);
+  // Dummy user data
+  const user = {
+    name: "John Doe",
+    email: "john.doe@example.com",
+    role: "seller",
+    avatar: "https://via.placeholder.com/100",
+  };
 
-  // Check if the user is logged in and if they have the role 'seller'
-  if (!user) {
-    return <p>Please log in to view your profile.</p>;
-  }
+  const [editing, setEditing] = useState(false);
+  const [formData, setFormData] = useState({
+    name: user.name,
+    email: user.email,
+  });
 
-  if (user.role !== 'seller') {
-    return <p>You are not authorized to view this page.</p>;
-  }
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Updated Seller Info:", formData);
+    setEditing(false);
+  };
 
   return (
-    <div className="profile-container" style={styles.container}>
-      <div className="profile-card" style={styles.profileCard}>
-        <img 
-          src={user.avatar || "https://via.placeholder.com/100"} 
-          alt="Seller Avatar" 
-          className="profile-avatar" 
+    <div style={styles.container}>
+      <div style={styles.profileCard}>
+        <img
+          src={user.avatar}
+          alt="Seller Avatar"
           style={styles.avatar}
         />
-        <h2 className="profile-name" style={styles.name}>{user.name}</h2>
-        <p className="profile-email" style={styles.email}>{user.email}</p>
-        {/* Additional seller-specific info or actions can go here */}
+        {editing ? (
+          <form onSubmit={handleSubmit} style={styles.form}>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              style={styles.input}
+              required
+            />
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              style={styles.input}
+              required
+            />
+            <button type="submit" style={styles.button}>Save</button>
+            <button type="button" style={styles.cancelButton} onClick={() => setEditing(false)}>Cancel</button>
+          </form>
+        ) : (
+          <>
+            <h2 style={styles.name}>{user.name}</h2>
+            <p style={styles.email}>{user.email}</p>
+            <button style={styles.button} onClick={() => setEditing(true)}>Edit Profile</button>
+          </>
+        )}
       </div>
     </div>
   );
@@ -32,8 +69,8 @@ const SellerProfile = () => {
 
 const styles = {
   container: {
-    maxWidth: "600px",
-    margin: "0 auto",
+    maxWidth: "400px",
+    margin: "50px auto",
     padding: "20px",
     fontFamily: "Arial, sans-serif",
   },
@@ -42,19 +79,56 @@ const styles = {
     border: "1px solid #ddd",
     borderRadius: "10px",
     padding: "20px",
+    boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+    background: "#fff",
   },
   avatar: {
     width: "100px",
     height: "100px",
     borderRadius: "50%",
     marginBottom: "10px",
+    border: "3px solid #ff6600",
   },
   name: {
-    margin: "0",
+    margin: "10px 0",
     fontSize: "1.8rem",
+    fontWeight: "bold",
+    color: "#333",
   },
   email: {
-    color: "#555",
+    color: "#666",
+    fontSize: "1.2rem",
+  },
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "10px",
+  },
+  input: {
+    padding: "10px",
+    borderRadius: "5px",
+    border: "1px solid #ccc",
+    fontSize: "1rem",
+  },
+  button: {
+    backgroundColor: "#ff6600",
+    color: "white",
+    padding: "10px",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    fontSize: "1rem",
+    marginTop: "10px",
+  },
+  cancelButton: {
+    backgroundColor: "#ccc",
+    color: "black",
+    padding: "10px",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    fontSize: "1rem",
+    marginTop: "10px",
   },
 };
 
