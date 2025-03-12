@@ -201,6 +201,6 @@ https://github.com/Wambuiracheal/e-commerce-backend.git
 https://e-commerce-backend-hm8x.onrender.com
 
 ## Deployed Frontend Link
-https://github.com/Wambuiracheal/shopIT-fullstack-ecommerce
+
 
 
